@@ -144,12 +144,13 @@ def make_gif(f6_numpy, X_MIN, X_MAX, Y_MIN, Y_MAX, all_pop_xy_per_gen,
     # Criar GIF com duração ajustável
     imageio.mimsave(outpath, frames, duration=0.3, loop=0)  # loop=0 para repetir infinitamente
     print(f"🎬 GIF salvo em {outpath} com {len(frames)} frames")
-    
+
+    """ 
     # Limpar frames temporários
     for frame_file in os.listdir(tmp_dir):
         os.remove(os.path.join(tmp_dir, frame_file))
     os.rmdir(tmp_dir)
-
+    """
 """    
 # Função para gerar GIF da evolução
 def make_gif(f6_numpy, X_MIN, X_MAX, Y_MIN, Y_MAX, all_pop_xy_per_gen,
