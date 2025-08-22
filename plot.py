@@ -26,11 +26,11 @@ def plot_contours(f6_numpy, X_MIN, X_MAX, Y_MIN, Y_MAX, final_pop, outpath="cont
 
     plt.figure(figsize=(10, 8))
     
-    # PRIMEIRO plota os pontos da população (fica por BAIXO das curvas)
+    # plota os pontos da população
     plt.scatter(final_pop[:,0], final_pop[:,1], s=50, c="red", alpha=0.7, 
                 edgecolors='white', linewidth=0.5, label="População")
     
-    # DEPOIS plota as curvas de nível com TRANSPARÊNCIA (fica por CIMA)
+    # plota as curvas de nível
     cs = plt.contour(XX, YY, ZZ, levels=25, cmap='viridis', alpha=0.5, linewidths=1.5)
     plt.clabel(cs, inline=True, fontsize=8, fmt='%.2f')
     
@@ -41,12 +41,11 @@ def plot_contours(f6_numpy, X_MIN, X_MAX, Y_MIN, Y_MAX, final_pop, outpath="cont
     best_x, best_y = final_pop[best_idx]
     best_fitness = fitness_values[best_idx]
     
-    # Destaque MÁXIMO para o melhor indivíduo
+    # Destaque para o melhor indivíduo
     plt.scatter(best_x, best_y, s=400, c="gold", marker="*", 
                 edgecolors="black", linewidth=3, zorder=100, 
                 label=f"Melhor: F={best_fitness:.4f}")
     
-    # Círculo de destaque adicional
     circle = plt.Circle((best_x, best_y), 8, color='yellow', fill=False, 
                        linestyle='--', linewidth=2, alpha=0.8, zorder=99)
     plt.gca().add_patch(circle)
@@ -104,14 +103,14 @@ def make_gif(f6_numpy, X_MIN, X_MAX, Y_MIN, Y_MAX, all_pop_xy_per_gen,
             
         fig, ax = plt.subplots(figsize=(8, 6))
         
-        # 🔥 PRIMEIRO: plotar a população
+        # PRIMEIRO: plotar a população
         ax.scatter(pop_xy[:,0], pop_xy[:,1], s=40, c="red", alpha=0.7, 
                   edgecolors='white', linewidth=0.5, label="População")
         
-        # 🔥 DEPOIS: plotar as curvas de nível com transparência
+        # DEPOIS: plotar as curvas de nível com transparência
         cs = ax.contour(XX, YY, ZZ, levels=15, cmap='viridis', alpha=0.5, linewidths=1.0)
         
-        # 🔥 DESTACAR o MELHOR indivíduo desta geração
+        # DESTACAR o MELHOR indivíduo desta geração
         from main import f6_scalar
         fitness_values = [f6_scalar(x, y) for x, y in pop_xy]
         best_idx = np.argmax(fitness_values)
@@ -146,7 +145,7 @@ def make_gif(f6_numpy, X_MIN, X_MAX, Y_MIN, Y_MAX, all_pop_xy_per_gen,
     imageio.mimsave(outpath, frames, duration=0.3, loop=0)  # loop=0 para repetir infinitamente
     print(f"🎬 GIF salvo em {outpath} com {len(frames)} frames")
     
-    # Limpar frames temporários (opcional)
+    # Limpar frames temporários
     for frame_file in os.listdir(tmp_dir):
         os.remove(os.path.join(tmp_dir, frame_file))
     os.rmdir(tmp_dir)
